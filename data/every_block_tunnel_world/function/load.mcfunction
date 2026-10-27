@@ -1,0 +1,1 @@
+execute unless data storage every_block_tunnel_world:state {initialized:true} run function every_block_tunnel_world:initialize

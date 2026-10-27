@@ -1,0 +1,10 @@
+{
+    "criteria": {
+        "spawn": {
+            "trigger": "tick"
+        }
+    },
+    "rewards": {
+        "function": "every_block_tunnel_world:player_spawn"
+    }
+}
