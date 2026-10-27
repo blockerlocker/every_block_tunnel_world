@@ -1,4 +1,4 @@
-import os, sys, urllib.request
+import os, sys, urllib.request, json
 from pathlib import Path
 
 
@@ -25,6 +25,7 @@ import bldp
 MCVERSION = bldp.get_version(MCVERSION)
 
 bldp.remove_path("every_block_tunnel_world/function/build_tunnel.mcfunction")
+bldp.remove_path("../pack.mcmeta")
 
 block_list = bldp.get_registry_data(MCVERSION,"block")
 
@@ -42,3 +43,15 @@ build_tunnel_function.insert(0,f"forceload add 0 16 15 {z_coordinate+15}")
 build_tunnel_function.append(f"forceload remove all")
 
 bldp.string_to_file("\n".join(build_tunnel_function),"every_block_tunnel_world/function","build_tunnel.mcfunction")
+
+data_pack_format = bldp.get_version_data(MCVERSION)["data_pack_version"]
+
+pack = {
+    "pack": {
+        "description": "Creates a world that is just a tunnel made up of every block.",
+        "min_format": data_pack_format,
+        "max_format": data_pack_format
+    }
+}
+
+bldp.string_to_file(json.dumps(pack, indent=4),"../","pack.mcmeta")
