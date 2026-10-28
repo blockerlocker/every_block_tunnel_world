@@ -1,0 +1,1 @@
+execute as @a at @s run function every_block_tunnel_world:tick/player

@@ -1,5 +1,5 @@
 {
     "values": [
-        "every_block_tunnel_world:tick"
+        "every_block_tunnel_world:tick/main"
     ]
 }

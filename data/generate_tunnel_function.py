@@ -25,6 +25,7 @@ import bldp
 MCVERSION = bldp.get_version(MCVERSION)
 
 bldp.remove_path("every_block_tunnel_world/function/build_tunnel.mcfunction")
+bldp.remove_path("every_block_tunnel_world/function/load.mcfunction")
 bldp.remove_path("../pack.mcmeta")
 
 block_list = bldp.get_registry_data(MCVERSION,"block")
@@ -43,6 +44,16 @@ build_tunnel_function.insert(0,f"forceload add 0 16 15 {z_coordinate+15}")
 build_tunnel_function.append(f"forceload remove all")
 
 bldp.string_to_file("\n".join(build_tunnel_function),"every_block_tunnel_world/function","build_tunnel.mcfunction")
+
+load_function = [
+    "execute unless data storage every_block_tunnel_world:state {initialized:true} run function every_block_tunnel_world:initialize",
+    "scoreboard objectives add every_block_tunnel_distance dummy",
+    "scoreboard players set #offset every_block_tunnel_distance 15",
+    f"scoreboard players set #block_count every_block_tunnel_distance {len(block_list)}",
+    "scoreboard objectives add block_count trigger"
+]
+
+bldp.string_to_file("\n".join(load_function),"every_block_tunnel_world/function","load.mcfunction")
 
 data_pack_format = bldp.get_version_data(MCVERSION)["data_pack_version"]
 
